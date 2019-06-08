@@ -1,8 +1,10 @@
 # 関数スコープ
+
 すでに**_ブロックスコープ_**について説明しましたが、他の**_ローカルスコープ_**の概念として**_関数スコープ_**と呼ばれるものがあります。
 関数ブロック内で宣言された変数は**_ローカルスコープ_**をもち、その変数は**ローカル変数**になります。関数内の**ローカル変数**が持つ有効範囲のことを**_関数スコープ_**と言います。
 
 ## 関数について
+
 **_関数_**とは、ある処理を繰り返し使用できるように「{}」で囲んだブロック内に処理をまとめたものです。関数の詳細についてはレッスン9で学びますが、ここでは簡単な説明のみに留めます。**_関数_**は**_ブロック_**を持ちます。**_関数_**の**_ブロック_**は内部の変数の有効範囲に影響を与えます。**_関数_**の持つ有効範囲のことを**_関数スコープ_**と言います。
 
 **_関数スコープ_**の特徴として、宣言時のキーワードが`var`、`let`、`const`のいずれであるかに関わらず、関数スコープを持つ変数に外部からアクセスすることはできません。
@@ -10,7 +12,7 @@
 ```js
 let textGlobal = 'グローバル変数です';
 
-function sample(){
+function sample() {
   let textLocal = 'ローカル変数です';
   console.log(textLocal);
 }
@@ -19,6 +21,8 @@ sample(); // "ローカル変数です"
 console.log(textGlobal); // "グローバル変数です"
 console.log(textLocal); // undefined
 ```
+
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/bg7Ln4d8/1/embedded/js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 
 ## グローバルオブジェクトのプロパティ
 
@@ -36,6 +40,7 @@ console.log(window.valueConst);// undefined
 ```
 
 ## this
+
 **_スコープ_**の場所を明示するために`this`キーワードを使うことがあります。
 以下で見ていくように`this`が何を意味するのかは、それが使われる文脈によって異なってきます。
 
@@ -69,30 +74,37 @@ function sample() {
   console.log(this);
 }
 
-console.log(sample());
+sample();
 ```
 
 出力結果:
+
 ```
 [object Window] {
   addEventListener: function addEventListener() { [native code] },
   alert: function alert() { [native code] },
 ...
 ```
+
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/kwc5j961/1/embedded/js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+
 このように関数スコープ内でthisを使った場合も通常は**windowオブジェクト**を指します。
 ただし次のサンプルコードのように、オブジェクトのメソッド定義内でthisが使われる時、このthisは**windowオブジェクト**ではなく、**そのオブジェクト自身**を指します。
+
 ```js
 let obj = {
   name: 'Max',
   age: 20,
-  func: function() {
+  setName: function() {
     this.name = 'Taro'; // オブジェクトの中のnameプロパティを指定
     return this.name;
   }
 };
 
-console.log(obj.func()); // "Taro"
+console.log(obj.setName()); // "Taro"
 ```
+
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/r0zjams5/1/embedded/js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 
 上記の例では関数呼び出しで`obj.name`と呼び出すところで`this.name`となっています。
 
@@ -105,14 +117,13 @@ let obj = {
 };
 
 //オブジェクトメソッドを追加
-obj.func = function() {
+obj.setName = function() {
   this.name = 'Taro';
   return this.name;
 }
 
-console.log(func()); // "Taro"
+console.log(obj.setName()); // "Taro"
 ```
-
 
 ### イベントとThis
 
@@ -136,12 +147,15 @@ btn.addEventListener('click', btnClicked);
 これを実行すると下記のようにボタン要素がコンソールに出力されます。つまりこの時thisは**windowオブジェクト**ではなく、関数を呼び出すトリガーとなった`<button>`要素になります。
 
 出力結果:
-```
-object HTMLButtonElement] {
+
+```js
+[object HTMLButtonElement] {
   accessKey: "",
   addEventListener: function addEventListener() { [native code] },
 ...
 ```
+
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/m62htgou/1/embedded/js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 
 ### アロー関数とthis
 
@@ -163,8 +177,9 @@ let btnClicked = () => console.log(this);
 btn.addEventListener('click', btnClicked);
 ```
 
-出力結果
-```
+出力結果:
+
+```js
 [object Window] {
   addEventListener: function addEventListener() { [native code] },
   alert: function alert() { [native code] },

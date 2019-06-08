@@ -17,6 +17,7 @@
 以下でこれらの特徴について見ていくことにします。
 
 ## letとconstの宣言
+
 `let`と`const`を使った変数の宣言方法について、すでに見てきたように`let`も`var`も数値、文字列、関数など任意のデータタイプを格納することができます。
 
 ```js
@@ -42,8 +43,8 @@ const string = 'efg';
 const value = 456;
 const arr = [4, 5, 6]; // 配列
 const obj = { name: 'Chair', number: 2 }; // オブジェクト
-const func2 = function(){
-console.log('sample');
+const func2 = function() {
+  console.log('sample');
 }
 
 console.log(string); // "efg"
@@ -52,9 +53,10 @@ console.log(arr[1]); // 5
 console.log(obj.name); // "Chair"
 func2(); // "sample"
 ```
+
 ## 値の代入
 
-`let`は値の代入(変更)が可能です。
+`let`は値の再代入(変更)をすることが可能です。
 
 ```js
 let value = 123;
@@ -63,7 +65,7 @@ value = 456; // 更新
 console.log(value); // 456
 ```
 
-一方で`const`の場合は値を代入(変更)することができません。
+一方で`const`の場合は値を再代入(変更)をすることができません。
 
 ```js
 const value = 123;
@@ -72,6 +74,8 @@ value = 456;
 console.log(value);
 // SyntaxError: Invalid regular expression: missing
 ```
+
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/yaqmj7cx/1/embedded/js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 
 `let`は配列やオブジェクトの代入ができますが、`const`は代入することはできません。変更しようとするとエラーとなります。
 
@@ -85,7 +89,6 @@ arrayOne = [1,3,5]; // 配列そのものの再代入
 // 出力結果はエラーにならない
 console.log(arrayOne); // [1, 3, 5]
 
-
 // オブジェクトの再代入
 let objOne = {
   name: 'Tanaka'
@@ -97,6 +100,8 @@ objOne = {
 //出力結果はエラーにならない
 console.log(objOne.name); // "Suzuki"
 ```
+
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/35ofe6wm/1/embedded/js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 
 ```js
 /****** constの場合 ******/
@@ -121,6 +126,8 @@ objTwo = {
 console.log(objTwo.name); // error
 ```
 
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/qeumvztj/1/embedded/js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+
 重要なポイントとして、`let`および`const`は配列やオブジェクトといったデータタイプの中身の要素やプロパティを変更することができます。特に値の代入ができないはずだった`const`で要素やプロパティの変更ができてしまっていることに注意してください。`const`は宣言されて以降の再代入は許可しませんが、オブジェクト型の中の可変な参照データは変更可能です。
 
 ```js
@@ -130,7 +137,7 @@ console.log(objTwo.name); // error
 let arrayOne = [2,4,6];
 arrayOne.push(8); // 要素を追加
 
-console.log(array_1[3]); // 8
+console.log(arrayOne[3]); // 8
 
 
 // オブジェクトプロパティの変更
@@ -142,6 +149,9 @@ objOne.name = 'Suzuki'; // 更新
 
 console.log(objOne.name); // "Suzuki"
 ```
+
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/f58pxced/1/embedded/js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+
 ```js
 /****** constの場合 ******/
 
@@ -165,9 +175,7 @@ objTwo.name = 'Suzuki'; // 更新
 console.log(objTwo.name); // "Suzuki"
 ```
 
-<!----
-これはオブジェクトが参照型と呼ばれるデータタイプであるためです。参照型では数値や文字列などと同様に、宣言時にオブジェクトの実体がコンピュータのメモリ上のどこかに割り当てられます。これらは例えば`const`であれば変更することもできないのですが、それはいわば外側の箱の情報のみで、参照される中身の情報は別の場所に保管されているのです。従ってこれらの情報を変更しても問題ないのです。
----->
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/8g3nhepf/2/embedded/js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 
 `const`によって宣言された変数は値の変更を考えない**定数**としての側面を強く持ちます。従って例えばコード全体を通じて変更することのない文字列や数値定数などで`const`を積極的に利用すると良いでしょう。
 
@@ -183,26 +191,31 @@ const title = 'TITLE'; // 変更しない文字列
 `let`と`const`はそのスコープ内で2回宣言することはできません。名前の重複をプログラム側が許さない仕様となることで、誤って別用途の変数に同じ名前を付けて宣言してしまうことを防ぐことができます。
 
 ```js
-var value = 123;
-var value = 456; // この変数で値が上書きされる
+var valueOne = 123;
+var valueOne = 456; // この変数で値が上書きされる
 
-console.log(value);// 456
+console.log(valueOne);// 456
 ```
-```js
-let value = 123;
-let value = 456; // ２度宣言することはできない
 
-console.log(value); // エラーになる
+```js
+let valueTwo = 123;
+let valueTwo = 456; // ２度宣言することはできない
+
+console.log(valueTwo); // エラーになる
 ```
 
 ## ブロックスコープ
+
 **_ブロック_**とはコード中で「{}」の括弧で囲まれた範囲のことです。例えば次のような単一の「{}」のみで囲ったものも**_ブロック_**となります。
+
 ```js
 {
   文; //ここはブロック
 }
 ```
+
 またif文やfor文もブロックを持ちます。
+
 ```js
 if (true) {
   文; // ここはブロック
@@ -215,6 +228,7 @@ for (let i = 0; i <= 3; i++) {
 
 `let`あるいは`const`を使うことで、`var`では実現できなかった**_ブロックスコープ_**が有効になります。
 `var`では**_if文_**のブロック内で宣言した変数に外部からアクセスできていました。
+
 ```js
 if (true) {
   var a = 100;
@@ -230,11 +244,12 @@ if (true) {
   let a = 100;
   const b = 123;
 }
+
 console.log(a); // error "ReferenceError: a is not defined
 console.log(b); // error "ReferenceError: b is not defined
 ```
-**_if文_**の中で宣言された変数は通常、ブロック内の処理にしか利用しません。従って外部からアクセスできてしまうことは、意図せず値を変更してしまう恐れがありある意味非常に危険なのです。`let`や`const`を使って自動的にこれらの危険性を取り除くことができます。
 
+**_if文_**の中で宣言された変数は通常、ブロック内の処理にしか利用しません。従って外部からアクセスできてしまうことは、意図せず値を変更してしまう恐れがありある意味非常に危険なのです。`let`や`const`を使って自動的にこれらの危険性を取り除くことができます。
 
 上記のような**_ブロック_**で囲まれた範囲内で宣言された変数がそのブロック内にのみ有効範囲を持つ時、この**_ローカルスコープ_**のことを特に**_ブロックスコープ_**と言います。すでに述べたように変数が**_ブロックスコープ_**を持つには、`let`あるいは`const`というキーワードで宣言されている必要があります。つまり`var`を使った変数宣言では**_ブロックスコープ_**とはならず、**_グローバルスコープ_**となります。
 
@@ -248,6 +263,7 @@ console.log(b); // error "ReferenceError: b is not defined
   console.log(b); // 9
 }
 ```
+
 以下のようにブロック外からアクセスしてもエラーとならず変数にアクセスできてしまいます。
 
 ```js
@@ -255,8 +271,10 @@ console.log(b); // error "ReferenceError: b is not defined
   // ブロック内で変数を宣言
   var b = 9;
 }
+
 console.log(b); // 9 ※エラーにならない
 ```
+
 一方、`let`あるいは`const`によって宣言された変数は**_ブロックスコープ_**を持つのでブロック外からアクセスしようとするとエラーとなります。
 
 ```js
@@ -265,6 +283,9 @@ console.log(b); // 9 ※エラーにならない
   let a = 8;
   const b = 3.14;
 }
+
 console.log(a); // "ReferenceError: a is not defined
 console.log(b); // "ReferenceError: b is not defined
 ```
+
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/043csjnf/1/embedded/js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>

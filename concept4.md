@@ -10,6 +10,7 @@ var word  = 'Hello';
 ```
 
 出力結果:
+
 ```js
 undefined
 ```
@@ -36,13 +37,13 @@ console.log(word); // ReferenceError: word is not defined
 const word  = 'Hello';
 ```
 
-
 ## 関数スコープでの巻き上げ
 
 類似の例として、関数スコープ内での**_巻き上げ_**について見ておきます。次の例では関数を実行しても最初の`first`は表示されません。
 
 ```js
 var num = 'first';
+
 function func(){
   console.log(num);
   var num  = 'second';
@@ -53,6 +54,7 @@ func();
 ```
 
 出力結果:
+
 ```js
 undefined
 "second"
@@ -78,12 +80,14 @@ func();
 
 ```js
 let  num = 'first';
+
 function func(){
 //ローカル変数の宣言がないためエラーが発生
   console.log(num); // num is not defined
   let num  = 'second';
   console.log(num);
 }
+
 func();
 ```
 

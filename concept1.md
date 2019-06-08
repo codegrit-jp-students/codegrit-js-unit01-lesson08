@@ -15,7 +15,6 @@ ES5以前は、変数を宣言する際`var`のみが使われていました。
 JavaScriptコードのどこからでもアクセスできる範囲のことを**_グローバルスコープ_**と言います。Javascriptのファイルあるいは`<script>`タグ内でトップの位置で宣言された変数はグローバルスコープを持ちます。グローバルスコープを持つ変数は**_グローバル変数_**と呼ばれます。また関数についても入れ子(**ネスト**)になっていない関数はどこからでもアクセス可能なグローバルスコープを持ちます。この関数は**_グローバル関数_**と呼ばれます。
 
 ```javascript
-<script>
 let a = 100; // グローバル変数
 
 function global(b) { // グローバル関数
@@ -30,8 +29,9 @@ console.log(a); // 100
 console.log(global(a)); // 200
 // ネストされた関数には外部から直接アクセスすることができない。
 console.log(local(a)); // ReferenceError: local is not defined
-</script>
 ```
+
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/wy4ckfv6/1/embedded/js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
 
 ## ローカルスコープ
 
@@ -54,7 +54,10 @@ console.log(a); // ReferenceError: a is not defined
 console.log(b); // ReferenceError: b is not defined
 ```
 
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/jztan61k/1/embedded/js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+
 宣言キーワードの`var`、`let`、`const`を付けずに無冠で変数宣言すると、ブロック内で宣言したとしても、自動的に**_グローバルスコープ_**となってしまいます。
+
 ```js
 {
   block = 100;
@@ -64,16 +67,24 @@ console.log(b); // ReferenceError: b is not defined
 console.log(block); // 100
 ```
 
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/rfz13g7y/1/embedded/js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+
 また**_if文_**、**_for文_**などの制御文の中で宣言キーワードなしで変数宣言した場合や、古い宣言方法である`var`を使って宣言された変数は**_ローカルスコープ_**を持ちません。
+
 ```js
 for (i = 0; i < 10; i++){} //カウンタ変数の宣言キーワードなし
 
-console.log(i);// 10が出力される。つまりアクセスが可能
+console.log(i); // 10が出力される。つまりアクセスが可能
 ```
+
 以下のように、結果は**カウンタ変数i**を`var`で宣言しても変わることはありません。
+
 ```js
 for (var i = 0; i < 10; i++) {} //カウンタ変数のvar宣言
 
-console.log(i);// 10が出力される。つまりアクセスが可能
+console.log(i); // 10が出力される。つまりアクセスが可能
 ```
+
+<iframe width="100%" height="300" src="//jsfiddle.net/codegrit_hiro/ms1htxdk/embedded/js,result/dark/" allowfullscreen="allowfullscreen" allowpaymentrequest frameborder="0"></iframe>
+
 この例のように制御文の外からでもアクセスできてしまう場合、これでは1つのプログラムの中で複数の制御文を記述する際に混乱を招いたり、わざわざ変数名を新しく作らないといけなかったりと不便です。この問題は`let`と`const`を使った宣言ができるようになったことで解決されました。従って宣言時には必ずこれらの新しいキーワードを明記するようにしましょう。
